@@ -48,4 +48,19 @@ class UserController extends Controller
             'success' => "user created successfuly"
         ], 201);
     }
+    public function deleteUser($id)
+    {
+        if (User::where('id', $id)->exists()) {
+            $user = User::find($id);
+            $user->delete();
+
+            return response()->json([
+                "message" => "user deleted successfuly"
+            ], 202);
+        } else {
+            return response()->json([
+                "message" => "user not found"
+            ], 404);
+        }
+    }
 }
