@@ -4,10 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\order;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -16,7 +18,8 @@ class UserController extends Controller
 
     public function index()
     {
-        return User::all();
+        $users = User::with('orders')->orderBy('id', 'ASC')->get();
+        return $users;
     }
 
     public function checkLogin(Request $request)
@@ -31,7 +34,8 @@ class UserController extends Controller
         }
         return response()->json([
             'success' => true,
-            'user' => $user
+            'user' => $user,
+
 
         ]);
     }
@@ -44,6 +48,9 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
+        $user_order_id = new Order;
+        $user_order_id->user_id = $user->id;
+        $user->orders()->save($user_order_id);
         return response()->json([
             'success' => "user created successfuly"
         ], 201);

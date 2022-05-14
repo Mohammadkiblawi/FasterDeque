@@ -16,12 +16,12 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->date('order_date');
-            $table->time('order_time');
+            $table->date('order_date')->nullable();
+            $table->time('order_time')->nullable();
             $table->boolean('paid')->default(0);
             $table->enum('status', ['pending', 'under process', 'done'])->default('pending');
-            $table->integer('total_price');
-            $table->string('brief');
+            $table->integer('total_price')->nullable();
+            $table->string('brief')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')
