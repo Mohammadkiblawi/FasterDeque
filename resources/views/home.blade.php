@@ -9,34 +9,31 @@
                 <thead>
                     <tr>
                         <th scope="col">Order Id</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Order-Date</th>
+                        <th scope="col">Order-Time</th>
+                        <th scope="col">Paid</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Data/Time</th>
-                        <th scope="col">Options</th>
-                        <th scope="col">Total</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Brief</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($orders as $order)
                     <tr>
-                        <th scope="row">1</th>
-                        <td><a class="btn btn-success rounded-pill">Done</a></td>
-                        <td>10-12-2022</td>
-                        <td></td>
-                        <td>20 $</td>
+                        <th scope="row">{{$order->id}}</th>
+                        <td>{{ $order->users->fname . ' ' . $order->users->lname }} </td>
+                        <td>{{ $order->order_date }}</td>
+                        <td>{{ $order->order_time }}</td>
+                        <td>{{ $order->paid}}</td>
+                        <td>
+                            <a class=" btn {{ $order->status =='done' ? 'btn-success': ($order->status=='under process' ? 'btn-primary' :'btn-warning')}} rounded-pill">{{ $order->status }}</a>
+                        </td>
+                        <td>{{ $order->total_price }} $</td>
+                        <td>{{ $order->brief }}</td>
                     </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td><a class="btn btn-warning rounded-pill">Pending</a></td>
-                        <td>10-12-2022</td>
-                        <td></td>
-                        <td>20 $</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td><a class="btn btn-primary rounded-pill">Under Process</a></td>
-                        <td>10-12-2022</td>
-                        <td></td>
-                        <td>20 $</td>
-                    </tr>
+                    @endforeach
+
                 </tbody>
             </table>
         </div>

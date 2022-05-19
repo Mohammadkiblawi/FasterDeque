@@ -77,4 +77,33 @@ class UserController extends Controller
             ], 404);
         }
     }
+
+    public function updateOrder(Request $request, $id)
+    {
+        if (order::where('id', $id)->exists()) {
+
+            // $order = order::find($id);
+            // $order->order_date =  $request->order_date;
+            // $order->order_time = $request->order_time;
+            // $order->total_price =  $request->total_price;
+            // $order->brief = is_null($request->brief) ? '' : $request->brief;
+            // $order->save();
+            $order = order::findOrFail($id);
+            $order->update($request->all());
+
+
+            return response()->json([
+                'success' => 'the order was updated',
+                'order' => $order
+            ], 200);
+        } else {
+            return response()->json([
+                "message" => "order not found"
+            ], 404);
+        }
+    }
+    public function getOrders()
+    {
+        return order::all();
+    }
 }
