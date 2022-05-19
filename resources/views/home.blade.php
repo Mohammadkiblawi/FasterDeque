@@ -23,7 +23,7 @@
                     <tr>
                         <th scope="row">{{$order->id}}</th>
                         <td>{{ $order->users->fname . ' ' . $order->users->lname }} </td>
-                        <td>{{ $order->order_date }}</td>
+                        <td>{{ date('d-m-Y', strtotime($order->order_date)) }}</td>
                         <td>{{ $order->order_time }}</td>
                         <td>{{ $order->paid}}</td>
                         <td>
