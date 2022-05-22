@@ -19,7 +19,7 @@ class order extends Model
 
     public function items()
     {
-        return $this->hasMany(item::class);
+        return $this->hasMany(item::class, 'order_id');
     }
     public function users()
     {

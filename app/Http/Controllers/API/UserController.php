@@ -4,6 +4,8 @@ namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\category;
+use App\Models\item;
 use App\Models\order;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Http\Request;
@@ -105,5 +107,35 @@ class UserController extends Controller
     public function getOrders()
     {
         return order::all();
+    }
+    public function addItems(Request $request)
+    {
+        $item = new item;
+        $item->quantity = $request->quantity;
+        $item->price = $request->price;
+        $item->description = $request->description;
+        $item->category_id = $request->category_id;
+        $item->order_id = $request->order_id;
+        $item->save();
+
+        return response()->json([
+            'success' => "item added successfuly"
+        ], 201);
+    }
+    public function showItems($id)
+    {
+        if (order::where('id', $id)->exists()) {
+            // $order = order::find($id);
+            $items = item::with('order')->where('order_id', $id)->get();
+            return response()->json([
+                'items' => $items,
+
+            ], 200);
+        } else {
+            return response()->json([
+                'message' => 'order wasn\'t found '
+
+            ], 404);
+        }
     }
 }
