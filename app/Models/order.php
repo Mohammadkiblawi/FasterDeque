@@ -25,8 +25,4 @@ class order extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    public function paidOrders()
-    {
-        return $this->paid > 0 ? true : false;
-    }
 }

@@ -23,10 +23,7 @@
                     <tr>
                         <th scope="row">{{$order->id}}</th>
                         <td>{{ $order->users->fname . ' ' . $order->users->lname }} </td>
-                        <td>@if($order->order_date)
-                            {{ \Carbon\Carbon::parse($order->order_date)->format('d/m/Y')}}
-                            @endif
-                        </td>
+                        <td>{{ date('d-m-Y', strtotime($order->order_date)) }}</td>
                         <td>{{ $order->order_time }}</td>
                         <td>{{ $order->paid}}</td>
                         <td>
@@ -39,17 +36,6 @@
 
                             @endforeach
                         </td>
-                        @method('put')
-                        @if($order->status == 'pending')
-
-                        <td><a class="btn btn-primary" href="{{route('update',['id'=>$order->id,'status'=>$order->status])}}">Add order</a>
-                            @elseif ($order->status == 'under process')
-                            @method('put')
-                        <td><a class="btn btn-primary" href="{{route('update',['id'=>$order->id,'status'=>$order->status])}}">Done</a>
-                            @else
-                        <td></td>
-                        @endif
-
                     </tr>
                     @endforeach
 

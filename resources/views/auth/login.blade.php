@@ -42,23 +42,8 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class=" row buttons justify-content-center align-items-center p-5">
-                            <div class="row justify-content-center">
-                                <div class="col-md-3 btn-primary button btn me-2 mb-3 lh-lg py-4">1</div>
-                                <div class="col-md-3 btn-primary button btn me-2 mb-3 lh-lg py-4">2</div>
-                                <div class="col-md-3 btn-primary button btn me-2 mb-3 lh-lg py-4">3</div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="col-md-3 btn-primary button btn me-2 mb-3 lh-lg py-4">4</div>
-                                <div class="col-md-3 btn-primary button btn me-2 mb-3 lh-lg py-4">5</div>
-                                <div class="col-md-3 btn-primary button btn me-2 mb-3 lh-lg py-4">6</div>
-                            </div>
-                            <div class="row justify-content-center">
-                                <div class="col-md-3 btn-primary button btn me-2 mb-3 lh-lg py-4">7</div>
-                                <div class="col-md-3 btn-primary button btn me-2 mb-3 lh-lg py-4">8</div>
-                                <div class="col-md-3 btn-primary button btn me-2 mb-3 lh-lg py-4">9</div>
-                            </div>
-                            <div class="row col-md-3 py-4"><button type="submit" class="btn btn-success py-3">Login</button></div>
+                        <div class=" row buttons justify-content-center align-items-center">
+                            <div class="row col-md-3 py-4"><button type="submit" class="btn btn-success ">Login</button></div>
 
                         </div>
                     </form>
