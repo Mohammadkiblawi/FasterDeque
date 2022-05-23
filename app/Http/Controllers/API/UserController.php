@@ -138,4 +138,20 @@ class UserController extends Controller
             ], 404);
         }
     }
+    public function deleteItem($id)
+    {
+        if (order::where('id', $id)->exists()) {
+            $order = order::where('id', $id)->pluck('id');
+            $items = item::where('order_id', $order);
+            $items->delete();
+
+            return response()->json([
+                "message" => "items deleted successfuly"
+            ], 202);
+        } else {
+            return response()->json([
+                "message" => "order not found"
+            ], 404);
+        }
+    }
 }
