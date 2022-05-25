@@ -80,12 +80,9 @@
             })
             .then(data => {
                 console.log(data);
-                location.href = 'http://faster-deque.herokuapp.com/paid'
-
-            }).then(() => {
-                window.location.reload();
+                this.location.href = 'http://faster-deque.herokuapp.com/paid'
+                this.window.location.reload();
             });
-
     }
 </script>
 @endsection
