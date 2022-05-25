@@ -80,10 +80,66 @@
             })
             .then(data => {
                 console.log(data);
-                location.href = 'http://faster-deque.herokuapp.com/paid'
+                window.location.href = 'http://faster-deque.herokuapp.com/paid'
 
 
             });
     }
+    // const card = document.getElementById('card');
+    // const orderID = document.getElementById('order');
+    // const url = 'http://fasterdeque.test/api/items/';
+    // const addorder = document.getElementById('add');
+    // const url2 = 'http://fasterdeque.test/api/order/';
+
+    // function getOrderID() {
+    //     let orderId = document.getElementById('order').value;
+    //     console.log(orderId);
+    //     fetch(url + orderId)
+    //         .then((res) => res.json())
+    //         .then(items => {
+    //             const item = items.items;
+    //             let html = '';
+    //             item.forEach(item => {
+    //                 html += `<div class="card mb-3">
+    //                     <div class="card-body" id="card-body">
+    //                     <h5 class="card-title">Description: ${item.description}</h5>
+    //                         <p class="card-text">Price: ${item.price} $</p>
+    //                         <p class="card-text">Quantity: ${item.quantity}</p>
+    //                         <p class="card-text"><b>Total Price:</b> ${item.order.total_price} $</p>
+    //                     <a href="#" class="btn btn-primary">ADD</a>
+    //                     </div>                  
+    //                     </div>`
+    //                 card.innerHTML = html;
+    //             });
+    //         })
+    //         .catch(err => {
+    //             console.log('error: ' + err);
+    //         });
+    // }
+
+    // function addOrder() {
+    //     const url = url2 + orderID.value;
+    //     console.log(url);
+
+    //     const order = {
+    //         paid: 1
+    //     };
+
+    //     fetch(url, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify(order)
+    //         }).then(response => {
+    //             return response.json()
+    //         })
+    //         .then(data => {
+    //             console.log(data);
+    //             window.location.href = 'http://fasterdeque.test/paid'
+
+
+    //         });
+    // }
 </script>
 @endsection
