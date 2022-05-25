@@ -1,0 +1,88 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="container ">
+    <div class="row ">
+        <div class="col-md-4 mt-5">
+            <div class="row g-3" style="height:500px;border-right:1px solid black;">
+                <div class="col">
+                    <label for="order" class="visually-hidden">Password</label>
+                    <input type="text" name="order_id" class="form-control" id="order" placeholder="Enter order id">
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary mb-3" onclick="getOrderID()">Confirm order</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-8 mt-3" id="card">
+            <div class="card">
+
+                <div class="card-body" id="card-body">
+                    <h5 class="card-title">No orders taken yet</h5>
+                    <p class="card-text">No items to show </p>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="offset-md-6 btn btn-primary col-md-2" id="add" onclick="addOrder()">ADD</button>
+    </div>
+</div>
+<script>
+    const card = document.getElementById('card');
+    const orderID = document.getElementById('order');
+    const url = 'https://faster-deque.herokuapp.com/api/items/';
+    const addorder = document.getElementById('add');
+    const url2 = 'https://faster-deque.herokuapp.com/api/order/';
+
+    function getOrderID() {
+        let orderId = document.getElementById('order').value;
+        console.log(orderId);
+        fetch(url + orderId)
+            .then((res) => res.json())
+            .then(items => {
+                const item = items.items;
+                let html = '';
+                item.forEach(item => {
+                    html += `<div class="card mb-3">
+                        <div class="card-body" id="card-body">
+                        <h5 class="card-title">Description: ${item.description}</h5>
+                            <p class="card-text">Price: ${item.price} $</p>
+                            <p class="card-text">Quantity: ${item.quantity}</p>
+                            <p class="card-text"><b>Total Price:</b> ${item.order.total_price} $</p>
+                        <a href="#" class="btn btn-primary">ADD</a>
+                        </div>                  
+                        </div>`
+                    card.innerHTML = html;
+                });
+            })
+            .catch(err => {
+                console.log('error: ' + err);
+            });
+    }
+
+    function addOrder() {
+        const url = url2 + orderID.value;
+        console.log(url);
+
+        const order = {
+            paid: 1
+        };
+
+        fetch(url, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(order)
+            }).then(response => {
+                return response.json()
+            })
+            .then(data => {
+                console.log(data);
+                location.href = 'http://faster-deque.herokuapp.com/paid'
+            });
+
+    }
+</script>
+@endsection

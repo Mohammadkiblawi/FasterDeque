@@ -13,7 +13,9 @@ class order extends Model
         'order_date',
         'order_time',
         'total_price',
-        'brief'
+        'brief',
+        'status',
+        'paid'
     ];
 
 

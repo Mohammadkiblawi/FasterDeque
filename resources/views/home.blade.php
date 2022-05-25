@@ -19,7 +19,9 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     @foreach ($orders as $order)
+                    @if($order->paid == 0)
                     <tr>
                         <th scope="row">{{$order->id}}</th>
                         <td>{{ $order->users->fname . ' ' . $order->users->lname }} </td>
@@ -51,10 +53,12 @@
                         @endif
 
                     </tr>
+                    @endif
                     @endforeach
 
                 </tbody>
             </table>
+
         </div>
     </div>
 </div>

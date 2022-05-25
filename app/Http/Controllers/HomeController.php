@@ -50,4 +50,8 @@ class HomeController extends Controller
         $orders = order::with(['users'])->where('paid', 1)->get();
         return view('paid', compact('orders'));
     }
+    public function confirm()
+    {
+        return view('confirm');
+    }
 }
