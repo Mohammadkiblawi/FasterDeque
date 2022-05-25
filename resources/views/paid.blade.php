@@ -32,7 +32,7 @@
                         <td>
                             <a class=" btn {{ $order->status =='done' ? 'btn-success': ($order->status=='under process' ? 'btn-primary' :'btn-warning')}} rounded-pill">{{ $order->status }}</a>
                         </td>
-                        <td>{{ $order->items()->sum('price') }} $</td>
+                        <td>{{ $order->total_price }} $</td>
                         <td>
                             @foreach ($order->items as $item)
                             {{ $item->description }}

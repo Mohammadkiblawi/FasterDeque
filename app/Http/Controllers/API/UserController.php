@@ -118,8 +118,10 @@ class UserController extends Controller
         $item->order_id = $request->order_id;
         $item->save();
 
-        return response()->json([
+
+        return  response()->json([
             'success' => "item added successfuly"
+
         ], 201);
     }
     public function showItems($id)

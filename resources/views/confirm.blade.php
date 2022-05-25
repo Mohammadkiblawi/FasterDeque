@@ -34,6 +34,8 @@
     const addorder = document.getElementById('add');
     const url2 = 'https://faster-deque.herokuapp.com/api/order/';
     const cardBody = document.getElementById('card-body');
+    let total_price = 0;
+    let sum = 0;
 
     function getOrderID() {
         let orderId = document.getElementById('order').value;
@@ -49,11 +51,37 @@
                         <h5 class="card-title">Description: ${item.description}</h5>
                             <p class="card-text">Price: ${item.price} $</p>
                             <p class="card-text">Quantity: ${item.quantity}</p>
-                            <p class="card-text"><b>Total Price:</b> ${item.order.total_price} $</p>
-                        
+                            <p class="card-text total_price" id="total_price"><b>Total Price:</b> ${item.quantity *item.price} $</p>
+                           
+                       
                         </div>                  
                         </div>`
                     card.innerHTML = html;
+                    // total_price = document.getElementById('total_price').innerText;
+                    const items = Array.from(document.getElementsByClassName("total_price")).map(item => item.innerText.substr(13, 15));
+                    total_price = items.reduce((a, b) => a + b);
+
+
+                    const regex = /\d+/gm;
+                    const str = total_price;
+                    let m;
+                    const filter = [];
+                    while ((m = regex.exec(str)) !== null) {
+                        // This is necessary to avoid infinite loops with zero-width matches
+                        if (m.index === regex.lastIndex) {
+                            regex.lastIndex++;
+                        }
+
+                        // The result can be accessed through the `m`-variable.
+                        m.forEach((match, groupIndex) => {
+                            filter.push(parseInt(match))
+                        });
+                    }
+                    sum += filter[filter.length - 1];
+                    console.log(sum);
+
+
+
                 });
             })
             .catch(err => {
@@ -61,12 +89,15 @@
             });
     }
 
+
     function addOrder() {
         const url = url2 + orderID.value;
         console.log(url);
 
         const order = {
-            paid: 1
+            paid: 1,
+            total_price: sum
+
         };
 
         fetch(url, {
@@ -87,6 +118,7 @@
 
             });
     }
+
     // const card = document.getElementById('card');
     // const orderID = document.getElementById('order');
     // const url = 'http://fasterdeque.test/api/items/';
@@ -109,7 +141,7 @@
     //                         <p class="card-text">Price: ${item.price} $</p>
     //                         <p class="card-text">Quantity: ${item.quantity}</p>
     //                         <p class="card-text"><b>Total Price:</b> ${item.order.total_price} $</p>
-    //                    
+
     //                     </div>                  
     //                     </div>`
     //                 card.innerHTML = html;
