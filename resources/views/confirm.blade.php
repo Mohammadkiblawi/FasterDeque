@@ -17,9 +17,8 @@
         </div>
 
         <div class="col-md-8 mt-3" id="card">
-            <div class="card">
-
-                <div class="card-body" id="card-body">
+            <div class="card" id="card-body">
+                <div class="card-body">
                     <h5 class="card-title">No orders taken yet</h5>
                     <p class="card-text">No items to show </p>
                 </div>
@@ -34,6 +33,7 @@
     const url = 'https://faster-deque.herokuapp.com/api/items/';
     const addorder = document.getElementById('add');
     const url2 = 'https://faster-deque.herokuapp.com/api/order/';
+    const cardBody = document.getElementById('card-body');
 
     function getOrderID() {
         let orderId = document.getElementById('order').value;
@@ -50,7 +50,7 @@
                             <p class="card-text">Price: ${item.price} $</p>
                             <p class="card-text">Quantity: ${item.quantity}</p>
                             <p class="card-text"><b>Total Price:</b> ${item.order.total_price} $</p>
-                        <a href="#" class="btn btn-primary">ADD</a>
+                        
                         </div>                  
                         </div>`
                     card.innerHTML = html;
@@ -79,6 +79,8 @@
                 return response.json()
             })
             .then(data => {
+                card.innerHTML = "";
+                card.appendChild(cardBody);
                 console.log(data);
                 window.location.href = 'http://faster-deque.herokuapp.com/paid'
 
@@ -90,6 +92,7 @@
     // const url = 'http://fasterdeque.test/api/items/';
     // const addorder = document.getElementById('add');
     // const url2 = 'http://fasterdeque.test/api/order/';
+    // const cardBody = document.getElementById('card-body');
 
     // function getOrderID() {
     //     let orderId = document.getElementById('order').value;
@@ -106,7 +109,7 @@
     //                         <p class="card-text">Price: ${item.price} $</p>
     //                         <p class="card-text">Quantity: ${item.quantity}</p>
     //                         <p class="card-text"><b>Total Price:</b> ${item.order.total_price} $</p>
-    //                     <a href="#" class="btn btn-primary">ADD</a>
+    //                    
     //                     </div>                  
     //                     </div>`
     //                 card.innerHTML = html;
@@ -135,6 +138,8 @@
     //             return response.json()
     //         })
     //         .then(data => {
+    //             card.innerHTML = "";
+    //             card.appendChild(cardBody);
     //             console.log(data);
     //             window.location.href = 'http://fasterdeque.test/paid'
 

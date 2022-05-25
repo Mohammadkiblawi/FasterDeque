@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col">
-            <a class="btn btn-primary float-end" href="#">Add Order</a>
+            <a class="btn btn-primary float-end" href="/confirm">Add Order</a>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -34,7 +34,7 @@
                         <td>
                             <a class=" btn {{ $order->status =='done' ? 'btn-success': ($order->status=='under process' ? 'btn-primary' :'btn-warning')}} rounded-pill">{{ $order->status }}</a>
                         </td>
-                        <td>{{ $order->total_price }} $</td>
+                        <td>{{ $order->items()->sum('price') }} $</td>
                         <td>
                             @foreach ($order->items as $item)
                             {{ $item->description }}
