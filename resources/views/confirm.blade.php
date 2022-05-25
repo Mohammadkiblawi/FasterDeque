@@ -81,7 +81,7 @@
             .then(data => {
                 console.log(data);
                 location.href = 'http://faster-deque.herokuapp.com/paid'
-                location.reload();
+
 
             });
     }
