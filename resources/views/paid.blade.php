@@ -75,7 +75,7 @@
                     status: status,
                     id: id
                 },
-                url: "http://fasterdeque.test/home/" + id + "/status/" + status + "",
+                url: "http://faster-deque.herokuapp.com/paid/" + id + "/status/" + status + "",
 
                 success: function(response) {
                     console.log(response)

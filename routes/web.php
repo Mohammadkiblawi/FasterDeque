@@ -23,6 +23,6 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::get('confirm', [HomeController::class, 'confirm']);
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::get('/home/{id}/status/{status}', [HomeController::class, 'updateOrder'])->name('update');
+Route::get('/paid/{id}/status/{status}', [HomeController::class, 'updateOrder'])->name('update');
 Route::get('/paid', [HomeController::class, 'paidOrders']);
 Route::get('history', [HomeController::class, 'history']);
