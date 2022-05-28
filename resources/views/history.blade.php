@@ -19,9 +19,8 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach ($orders as $order)
-                    @if($order->paid == 0)
+                    @if ($order->status == 'done')
                     <tr id="{{$order->id}}">
                         <th scope="row">{{$order->id}}</th>
                         <td>{{ $order->users->fname . ' ' . $order->users->lname }} </td>
@@ -31,28 +30,25 @@
                         </td>
                         <td>{{ $order->order_time }}</td>
                         <td>{{ $order->paid}}</td>
-                        <td data-status="{{$order->status}}">
+                        <td>
                             <a class=" btn {{ $order->status =='done' ? 'btn-success': ($order->status=='under process' ? 'btn-primary' :'btn-warning')}} rounded-pill">{{ $order->status }}</a>
                         </td>
                         <td>{{ $order->total_price }} $</td>
-                        <!-- or $order->items()->sum('price') -->
                         <td>
                             @foreach ($order->items as $item)
                             {{ $item->description }}
 
                             @endforeach
                         </td>
-                        @if($order->status != 'done')
-                        <td><button data-status="{{$order->status}}" data-id="{{$order->id}}" class="btn btn-primary change">Change Status</button></td>
-                        @else
                         <td></td>
-                        @endif
-                        @endif
-                        @endforeach
+
+
                     </tr>
+                    @endif
+                    @endforeach
+
                 </tbody>
             </table>
-
         </div>
     </div>
 </div>

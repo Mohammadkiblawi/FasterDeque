@@ -50,4 +50,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(order::class, 'user_id');
     }
+    public function unpaidOrders()
+    {
+        return $this->orders()->where('paid', 0);
+    }
 }

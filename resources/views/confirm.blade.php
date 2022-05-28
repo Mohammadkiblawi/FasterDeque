@@ -52,8 +52,8 @@
                             <p class="card-text">Price: ${item.price} $</p>
                             <p class="card-text">Quantity: ${item.quantity}</p>
                             <p class="card-text total_price" id="total_price"><b>Total Price:</b> ${item.quantity *item.price} $</p>
-                           
-                       
+
+
                         </div>                  
                         </div>`
                     card.innerHTML = html;

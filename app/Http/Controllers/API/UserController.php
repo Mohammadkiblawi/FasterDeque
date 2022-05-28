@@ -30,7 +30,7 @@ class UserController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required']
         ]);
-        $user = User::with('orders')->where('email', $postData['email'])->first();
+        $user = User::with('unpaidOrders')->where('email', $postData['email'])->first();
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['error' => 'Invalid credentials']);
         }

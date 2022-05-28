@@ -20,7 +20,8 @@
                 </thead>
                 <tbody>
                     @foreach ($orders as $order)
-                    <tr>
+                    @if ($order->status != 'done')
+                    <tr id="{{$order->id}}">
                         <th scope="row">{{$order->id}}</th>
                         <td>{{ $order->users->fname . ' ' . $order->users->lname }} </td>
                         <td>@if($order->order_date)
@@ -40,17 +41,14 @@
                             @endforeach
                         </td>
 
-                        @if($order->status == 'pending')
-
-                        <td><a class="btn btn-primary" href="{{route('update',['id'=>$order->id,'status'=>$order->status])}}">Add order</a>
-                            @elseif ($order->status == 'under process')
-
-                        <td><a class="btn btn-primary" href="{{route('update',['id'=>$order->id,'status'=>$order->status])}}">Done</a>
-                            @else
+                        @if($order->status != 'done')
+                        <td><button data-status="{{$order->status}}" data-id="{{$order->id}}" class="btn btn-primary change">Change Status</button></td>
+                        @else
                         <td></td>
                         @endif
 
                     </tr>
+                    @endif
                     @endforeach
 
                 </tbody>
@@ -58,4 +56,82 @@
         </div>
     </div>
 </div>
+@section('script')
+<script>
+    function updateOrderStatus() {
+        $('.change').on('click', function() {
+
+            var status = $(this).data('status');
+            var id = $(this).data('id');
+            console.log(status, id);
+            var tdStatus = $('tr#' + id + ' td:nth-child(6) a').text();
+            var orderDate = $('tr#' + id + ' td:nth-child(3)').text();
+            var orderTime = $('tr#' + id + ' td:nth-child(4)').text();
+
+
+            $.ajax({
+                type: 'GET',
+                data: {
+                    status: status,
+                    id: id
+                },
+                url: "http://fasterdeque.test/home/" + id + "/status/" + status + "",
+
+                success: function(response) {
+                    console.log(response)
+                    tdStatus = $('tr#' + id + ' td:nth-child(6) a').html(response.status);
+                    orderDate = $('tr#' + id + ' td:nth-child(3)').text(response.order_date);
+                    orderTime = $('tr#' + id + ' td:nth-child(4)').text(response.order_time);
+                    location.reload();
+                },
+                error: function(error) {
+                    alert(error);
+                }
+
+            });
+
+        });
+
+
+    }
+    // function updateOrderStatus() {
+    //     $('.change').on('click', function() {
+
+    //         var status = $(this).data('status');
+    //         var id = $(this).data('id');
+    //         console.log(status, id);
+    //         if (status == 'pending') {
+    //             status = 'under process';
+
+
+    //         } else if (status == 'under process') {
+    //             status = 'done';
+
+    //         }
+
+    //         $.ajax({
+    //             type: 'PUT',
+    //             data: {
+    //                 status: status,
+    //                 id: id
+    //             },
+    //             url: "http://fasterdeque.test/api/order/" + id,
+
+    //             success: function(response) {
+    //                 console.log(response)
+    //                 location.reload();
+    //             },
+    //             error: function(error) {
+    //                 alert(error);
+    //             }
+
+    //         });
+
+    //     });
+
+
+    // }
+    updateOrderStatus();
+</script>
+@endsection
 @endsection

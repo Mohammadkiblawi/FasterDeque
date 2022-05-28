@@ -38,17 +38,41 @@ class HomeController extends Controller
                 $order->status = 'under process';
             } elseif ($status == 'under process') {
                 $order->status = 'done';
+                $newOrder = new Order;
+                $newOrder->user_id = $order->user_id;
+                $newOrder->save();
             }
-            $order->paid = 1;
+
+
+
             $order->save();
-            return redirect()->back();
+            return $order;
         }
+        // $order = order::find($id);
+        // if ($order) {
+        //     $order->order_date = now()->format('Y-m-d');
+        //     $order->order_time = now()->format('H:i:s');
+        //     if ($status == 'pending') {
+        //         $order->status = 'under process';
+        //     } elseif ($status == 'under process') {
+        //         $order->status = 'done';
+        //     }
+        //     $order->paid = 1;
+        //     $order->save();
+        //     return redirect()->back();
+        // }
     }
+    // public function updateOrderStatus()
 
     public function paidOrders()
     {
         $orders = order::with(['users'])->where('paid', 1)->get();
         return view('paid', compact('orders'));
+    }
+    public function history()
+    {
+        $orders = order::with(['users'])->where('paid', 1)->get();
+        return view('history', compact('orders'));
     }
     public function confirm()
     {
