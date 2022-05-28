@@ -113,7 +113,7 @@
                 card.innerHTML = "";
                 card.appendChild(cardBody);
                 console.log(data);
-                window.location.href = 'http://faster-deque.herokuapp.com/paid'
+                window.location.href = 'http://faster-deque.herokuapp.com/paid-orders'
 
 
             });
