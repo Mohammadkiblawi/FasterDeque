@@ -34,11 +34,8 @@ class UserController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['error' => 'Invalid credentials']);
         }
-        // $users = DB::table('users')
-        //     ->join('orders', 'users.id', '=', 'orders.user_id')
-        //     ->select('users.*', 'orders.id', 'orders.user_id')
-        //     ->get();
-
+        $user->remember_token = is_null($request->remember_token) ? $user->remember_token : $request->remember_token;
+        $user->save();
         return response()->json([
             'success' => true,
             'user' => $user,

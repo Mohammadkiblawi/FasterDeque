@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\order;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -77,5 +78,49 @@ class HomeController extends Controller
     public function confirm()
     {
         return view('confirm');
+    }
+
+
+    public function sendWebNotification(Request $request)
+    {
+        $url = 'https://fcm.googleapis.com/fcm/send';
+        $FcmToken = User::whereNotNull('remember_token')->pluck('remember_token')->all();
+
+        $serverKey = 'AAAA0j7rYcE:APA91bGbvEGBbzgZzawEQ8YZM8C9leFocOsmneCHvwKicnGT2rLv9FIATpSUpGiLG1bNOhBiwlktSh3HStDRxciqKAmAocB5bxu0zX_GKeewZ9WdacXl0EwH7RKLoSsgfhbTBz2LtmLD';
+
+        $data = [
+            "registration_ids" => $FcmToken,
+            "notification" => [
+                "title" => $request->title,
+                "body" => $request->body,
+            ]
+        ];
+        $encodedData = json_encode($data);
+
+        $headers = [
+            'Authorization:key=' . $serverKey,
+            'Content-Type: application/json',
+        ];
+
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_HTTP_VERSION, CURL_HTTP_VERSION_1_1);
+        // Disabling SSL Certificate support temporarly
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $encodedData);
+        // Execute post
+        $result = curl_exec($ch);
+        if ($result === FALSE) {
+            die('Curl failed: ' . curl_error($ch));
+        }
+        // Close connection
+        curl_close($ch);
+        // FCM response
+        dd($result);
     }
 }

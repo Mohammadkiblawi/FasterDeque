@@ -71,6 +71,28 @@
             @yield('content')
         </main>
     </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyD9IIfAC8jumL7Y_ZxThgy36wrjzHHEDU8",
+            authDomain: "faster-dequeue-83e3a.firebaseapp.com",
+            projectId: "faster-dequeue-83e3a",
+            storageBucket: "faster-dequeue-83e3a.appspot.com",
+            messagingSenderId: "902998745537",
+            appId: "1:902998745537:web:4fbc72c488b3b0ac178f40"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @yield('script')
 </body>

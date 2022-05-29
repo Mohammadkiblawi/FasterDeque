@@ -56,4 +56,13 @@
         </div>
     </div>
 </div>
+<!-- @if($order->status == 'pending')
+
+<td><a class="btn btn-primary" href="{{route('update',['id'=>$order->id,'status'=>$order->status])}}">Add order</a>
+    @elseif ($order->status == 'under process')
+
+<td><a class="btn btn-primary" href="{{route('update',['id'=>$order->id,'status'=>$order->status])}}">Done</a>
+    @else
+<td></td>
+@endif -->
 @endsection
