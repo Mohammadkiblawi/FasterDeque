@@ -77,6 +77,9 @@
             initializeApp
         } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-app.js";
 
+        import {
+            getMessaging
+        } from "https://www.gstatic.com/firebasejs/9.8.2/firebase-messaging.js";
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
 

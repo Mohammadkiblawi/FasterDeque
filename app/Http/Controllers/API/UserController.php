@@ -34,7 +34,7 @@ class UserController extends Controller
         if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json(['error' => 'Invalid credentials']);
         }
-        $user->remember_token = is_null($request->remember_token) ? $user->remember_token : $request->remember_token;
+        $user->fcm_token = is_null($request->fcm_token) ? $user->fcm_token : $request->fcm_token;
         $user->save();
         return response()->json([
             'success' => true,

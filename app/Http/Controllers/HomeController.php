@@ -42,10 +42,9 @@ class HomeController extends Controller
                 $newOrder = new Order;
                 $newOrder->user_id = $order->user_id;
                 $newOrder->save();
+
+                self::sendWebNotification();
             }
-
-
-
             $order->save();
             return $order;
         }
@@ -81,19 +80,22 @@ class HomeController extends Controller
     }
 
 
-    public function sendWebNotification(Request $request)
+    public function sendWebNotification()
     {
         $url = 'https://fcm.googleapis.com/fcm/send';
-        $FcmToken = User::whereNotNull('remember_token')->pluck('remember_token')->all();
+        //$FcmToken = User::whereNotNull('fcm_token')->pluck('fcm_token')->all();
+        $FcmToken = 'cMN93UXoRcCOaNNu3oAiiV:APA91bEdNN20RIO5uQ-_2secprK9zqDX8bWRo7JCh7l2C2772h8mLR1CYb6nykfc_mVMfWF0Y3MhU0yM9GsDwEwyTJXrSqIKPkYVFmDHn8KKMu2R_apcaR9v9G1r5Y1i_tPMh_Gyxtgi';
 
         $serverKey = 'AAAA0j7rYcE:APA91bGbvEGBbzgZzawEQ8YZM8C9leFocOsmneCHvwKicnGT2rLv9FIATpSUpGiLG1bNOhBiwlktSh3HStDRxciqKAmAocB5bxu0zX_GKeewZ9WdacXl0EwH7RKLoSsgfhbTBz2LtmLD';
 
         $data = [
-            "registration_ids" => $FcmToken,
+            "registration_ids" => [$FcmToken],
             "notification" => [
-                "title" => $request->title,
-                "body" => $request->body,
-            ]
+                "title" => 'Order done!',
+                "body" => 'Thank you,  please come and grab your order',
+
+            ],
+
         ];
         $encodedData = json_encode($data);
 
