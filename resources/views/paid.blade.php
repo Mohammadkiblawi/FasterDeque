@@ -41,10 +41,12 @@
                             @endforeach
                         </td>
 
-                        @if($order->status != 'done')
+                        @if($order->status == 'pending')
                         <td><button data-status="{{$order->status}}" data-id="{{$order->id}}" class="btn btn-primary change">Change Status</button></td>
                         @else
-                        <td></td>
+                        @method('POST')
+                        <td><button data-status="{{$order->status}}" data-id="{{$order->id}}" data-token="{{$order->users->fcm_token}}" class="btn btn-primary done" type="submit">Done</button></td>
+
                         @endif
 
                     </tr>
@@ -134,6 +136,38 @@
 
     // }
     updateOrderStatus();
+
+    $('.done').on('click', function() {
+        var status = $(this).data('status');
+        var id = $(this).data('id');
+        var token = $(this).data('token');
+        console.log(status, id, token);
+        if (status == 'under process') {
+            status = 'done';
+        }
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            data: {
+                status: status,
+                id: id,
+                fcm_token: token
+            },
+
+            url: "{{route('sendWebNotification')}}",
+            success: function(response) {
+                console.log(response)
+                location.reload();
+            },
+            error: function(error) {
+                alert(error);
+            }
+        });
+    });
 </script>
 @endsection
 @endsection

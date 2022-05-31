@@ -26,3 +26,4 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/paid/{id}/status/{status}', [HomeController::class, 'updateOrder'])->name('update');
 Route::get('/paid-orders', [HomeController::class, 'paidOrders']);
 Route::get('history', [HomeController::class, 'history']);
+Route::post('send-notification', [HomeController::class, 'sendWebNotification'])->name('sendWebNotification');
